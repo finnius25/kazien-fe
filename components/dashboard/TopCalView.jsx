@@ -25,7 +25,7 @@ const TopCalView = ({ selectedDate, setSelectedDate }) => {
               <View
                 className={`flex items-center px-3 py-2 rounded-xl ${
                   isSelected ? "border border-neutral-300" : ""
-                } ${_isToday ? "bg-black" : ""}`}
+                } ${_isToday ? "bg-[#022348]" : ""}`}
               >
                 <Text
                   className={`text-3xl ${
@@ -36,7 +36,11 @@ const TopCalView = ({ selectedDate, setSelectedDate }) => {
                 </Text>
                 <Text
                   className={`font-semibold ${
-                    isSelected ? "text-[#FF5104]" : "text-stone-600"
+                    isSelected
+                      ? _isToday
+                        ? "text-white"
+                        : "text-[#022348]"
+                      : "text-stone-600"
                   } ${_isToday ? "text-white" : ""} text-sm`}
                 >
                   {days[i]}

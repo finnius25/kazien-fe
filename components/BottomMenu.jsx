@@ -23,7 +23,7 @@ const BottomMenu = () => {
 
       <View className="w-full flex flex-row pb-10 relative">
         <View className="flex-1 flex justify-center items-center">
-          <View className="size-16 rounded-full bg-red-600 flex items-center justify-center">
+          <View className="size-16 rounded-full bg-[#022348] flex items-center justify-center">
             <Text className="text-4xl text-white">+</Text>
           </View>
         </View>

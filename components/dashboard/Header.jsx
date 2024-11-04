@@ -11,7 +11,7 @@ const Header = ({ selectedDate }) => {
           <Text className="text-7xl font-bold text-black">
             {formatDay(selectedDate)}
           </Text>
-          <View className="size-5 bg-[#FF5104] rounded-full"></View>
+          <View className="size-5 bg-[#022348] rounded-full"></View>
         </View>
         <View className="flex items-end">
           <View>
