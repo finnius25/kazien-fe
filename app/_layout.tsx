@@ -6,11 +6,16 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="dashboard" options={{ headerShown: false }} />
-        <Stack.Screen name="feed" options={{ headerShown: false }} />
-        <Stack.Screen name="taskView" options={{ headerShown: false }} />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          animation: "none", // This disables the animation for all screens
+        }}
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen name="dashboard" />
+        <Stack.Screen name="feed" />
+        <Stack.Screen name="taskView" />
       </Stack>
     </GestureHandlerRootView>
   );

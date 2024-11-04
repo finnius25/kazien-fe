@@ -41,10 +41,10 @@ const Feed = () => {
     setSelectedDate(newDate);
   };
 
-  // Modified gesture to work better with scrolling
   const gesture = Gesture.Pan()
-    .activeOffsetX([-10, 10])
-    .failOffsetY([-5, 5]) // Added to better handle vertical scrolling
+    .activeOffsetX([-20, 20])
+    .failOffsetY([-5, 5])
+    .enabled(true)
     .onUpdate((event) => {
       translateX.value = event.translationX;
     })

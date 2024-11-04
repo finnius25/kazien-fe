@@ -1,9 +1,20 @@
 import { Image } from "expo-image";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { blurhash } from "../../utils/general/blurhash";
+import { Link, router } from "expo-router";
 
 const Post = ({ image, bulletPoints = [], title = "" }) => {
   return (
+    // <Pressable
+    //   onPress={() => router.push("/taskView")}
+    //   delayLongPress={150}
+    //   style={({ pressed }) => [
+    //     {
+    //       opacity: pressed ? 0.9 : 1,
+    //     },
+    //   ]}
+    //   hitSlop={{ top: 10, bottom: 10 }}
+    // >
     <View className="flex gap-2">
       <View className="flex flex-row items-center gap-2">
         <View className="size-10 rounded-full overflow-hidden border border-neutral-300">
@@ -46,6 +57,7 @@ const Post = ({ image, bulletPoints = [], title = "" }) => {
         ))}
       </View>
     </View>
+    // </Pressable>
   );
 };
 
