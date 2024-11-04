@@ -9,7 +9,7 @@ const TopCalView = ({ selectedDate, setSelectedDate }) => {
   const weekDates = getWeekDates();
 
   return (
-    <View className="w-full px-4 pt-2">
+    <View className="w-full px-4 pb-4 rounded-b-3xl">
       <View className="flex flex-row justify-around w-full items-center mt-6">
         {weekDates.map((date, i) => {
           const isSelected =
