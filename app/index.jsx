@@ -1,17 +1,24 @@
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Header from "../components/dashboard/Header";
-import TopCalView from "../components/dashboard/TopCalView";
-import TaskList from "../components/dashboard/TaskList";
-import BottomMenu from "../components/BottomMenu";
+import { useState } from "react";
+import { Link } from "expo-router";
+import { Button } from "react-native";
 
 export default function Index() {
   return (
     <SafeAreaView className="flex-1">
-      <Header />
-      <TopCalView />
-      <TaskList />
-      <BottomMenu />
+      <View className="flex-1 flex flex-col items-center justify-center">
+        <Link href="/dashboard" asChild>
+          <Pressable>
+            <Text>dashboard</Text>
+          </Pressable>
+        </Link>
+        <Link href="/feed" asChild>
+          <Pressable>
+            <Text>feed</Text>
+          </Pressable>
+        </Link>
+      </View>
     </SafeAreaView>
   );
 }

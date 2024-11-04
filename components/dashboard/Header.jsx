@@ -1,23 +1,27 @@
 import { View, Text } from "react-native";
 import React from "react";
+import formatMonth from "../../utils/date/formatMonth";
+import formatDay from "../../utils/date/formatDay";
 
-const Header = () => {
+const Header = ({ selectedDate }) => {
   return (
-    <View className="pt-10 px-12">
+    <View className="pt-8 px-4">
       <View className="w-full flex flex-row justify-between">
         <View className="flex flex-row gap-2 items-center">
-          <Text className="text-7xl font-bold text-black">Fri</Text>
-          <View className="size-5 bg-red-500 rounded-full"></View>
+          <Text className="text-7xl font-bold text-black">
+            {formatDay(selectedDate)}
+          </Text>
+          <View className="size-5 bg-[#FF5104] rounded-full"></View>
         </View>
         <View className="flex items-end">
           <View>
             <Text className="text-3xl font-semibold text-stone-500">
-              January 17
+              {formatMonth(selectedDate)} {selectedDate.getDate()}
             </Text>
           </View>
           <View>
             <Text className="text-3xl font-medium text-neutral-400/80">
-              2024
+              {selectedDate.getFullYear()}
             </Text>
           </View>
         </View>
