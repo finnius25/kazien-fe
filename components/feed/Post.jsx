@@ -3,7 +3,32 @@ import { Pressable, Text, View } from "react-native";
 import { blurhash } from "../../utils/general/blurhash";
 import { Link, router } from "expo-router";
 
-const Post = ({ image, bulletPoints = [], title = "" }) => {
+const Post = ({ image, bulletPoints = [], title = "", post, timestamp }) => {
+  const getRelativeTime = (timestamp) => {
+    const now = new Date();
+    const date = new Date(timestamp);
+    const diffInSeconds = Math.floor((now - date) / 1000);
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    const diffInDays = Math.floor(diffInHours / 24);
+
+    if (diffInSeconds < 60) {
+      return "just now";
+    } else if (diffInMinutes < 60) {
+      return `${diffInMinutes}m`;
+    } else if (diffInHours < 24) {
+      return `${diffInHours}h`;
+    } else if (diffInDays < 7) {
+      return `${diffInDays}d`;
+    } else {
+      // Format date for older posts
+      const options = { month: "short", day: "numeric" };
+      return date.toLocaleDateString(undefined, options);
+    }
+  };
+
+  const relativeTime = getRelativeTime(timestamp);
+
   return (
     // <Pressable
     //   onPress={() => router.push("/taskView")}
@@ -34,7 +59,9 @@ const Post = ({ image, bulletPoints = [], title = "" }) => {
           <Text className="font-medium text-base text-black">You</Text>
         </View>
         <View>
-          <Text className="text-stone-400 text-base font-medium">20m</Text>
+          <Text className="text-stone-400 text-base font-medium">
+            {relativeTime}
+          </Text>
         </View>
       </View>
       <View className="max-h-[20rem] rounded-2xl overflow-hidden">
