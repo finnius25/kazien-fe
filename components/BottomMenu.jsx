@@ -1,7 +1,14 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 
 const BottomMenu = () => {
+  const router = useRouter();
+
+  const handleCreatePost = () => {
+    router.push("/createPost");
+  };
+
   return (
     <View className="w-full flex flex-row absolute bottom-0">
       <LinearGradient
@@ -23,9 +30,12 @@ const BottomMenu = () => {
 
       <View className="w-full flex flex-row pb-10 relative">
         <View className="flex-1 flex justify-center items-center">
-          <View className="size-16 rounded-full bg-[#022348] flex items-center justify-center">
+          <TouchableOpacity
+            onPress={handleCreatePost}
+            className="size-16 rounded-full bg-[#022348] flex items-center justify-center active:opacity-80"
+          >
             <Text className="text-4xl text-white">+</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

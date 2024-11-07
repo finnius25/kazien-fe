@@ -15,6 +15,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" />
         <Stack.Screen name="dashboard" />
         <Stack.Screen name="feed" />
+        <Stack.Screen name="createPost" />
         <Stack.Screen name="taskView" />
       </Stack>
     </GestureHandlerRootView>

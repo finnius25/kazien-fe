@@ -18,6 +18,7 @@ import { formatDate, getTasksForDate } from "../utils/task/taskStore";
 import migratePosts from "../scripts/dataMigration";
 import getWeekDates, { toLocalDate } from "../utils/date/getWeekDates";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -34,6 +35,7 @@ const Feed = () => {
     id: formatDate(selectedDate),
     posts: [],
   });
+
 
   // Update weekDates when selectedDate changes
   useEffect(() => {
@@ -106,8 +108,6 @@ const Feed = () => {
     ],
     zIndex: 1,
   }));
-
-  // migratePosts();
 
   useEffect(() => {
     const selectedDateStr = formatDate(selectedDate);
