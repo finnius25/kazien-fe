@@ -7,6 +7,7 @@ import Animated, {
   interpolate,
   Extrapolation,
   withSpring,
+  runOnJS,
 } from "react-native-reanimated";
 import TopTabs from "../components/feed/TopTabs";
 import Header from "../components/dashboard/Header";
@@ -29,6 +30,10 @@ const Feed = () => {
   const HEADER_HEIGHT = 90;
   const TOPTABS_HEIGHT = 80;
   const currentIndexRef = useRef(0);
+  const [feedData, setFeedData] = useState({
+    id: formatDate(selectedDate),
+    posts: [],
+  });
 
   // Update weekDates when selectedDate changes
   useEffect(() => {
@@ -102,65 +107,43 @@ const Feed = () => {
     zIndex: 1,
   }));
 
-  const renderHorizontalItem = ({ item: date, index }) => {
-    const dateStr = formatDate(date);
+  // migratePosts();
 
-    // Filter tasks for just this specific date
-    const tasks = tasksData[dateStr] || [];
-
-    // Only create feedData if there are tasks for this date
-    const feedData = {
-      id: dateStr,
-      posts: tasks.map((task) => ({
+  useEffect(() => {
+    const selectedDateStr = formatDate(selectedDate);
+    const selectedTasks = tasksData[selectedDateStr] || [];
+    setFeedData({
+      id: selectedDateStr,
+      posts: selectedTasks.map((task) => ({
         id: task.id,
         title: task.title,
         bulletPoints: task.bulletPoints,
         image: task.image,
         timestamp: task.timestamp,
       })),
-    };
+    });
+  }, [selectedDate, tasksData]);
 
-    return (
-      <View style={{ width: SCREEN_WIDTH }}>
-        <FeedCollection id={dateStr} posts={feedData.posts} />
-        <View>
-          <Text>Posts for {dateStr}</Text>
-          <Text>{feedData.posts.length} posts</Text>
-        </View>
-      </View>
-    );
-  };
-
-  // migratePosts();
-
-  const selectedDateStr = formatDate(selectedDate);
-  const selectedTasks = tasksData[selectedDateStr] || [];
-  const feedData = {
-    id: selectedDateStr,
-    posts: selectedTasks.map((task) => ({
-      id: task.id,
-      title: task.title,
-      bulletPoints: task.bulletPoints,
-      image: task.image,
-      timestamp: task.timestamp,
-    })),
+  const updateDate = (direction) => {
+    const newDate = new Date(selectedDate.getTime());
+    newDate.setDate(selectedDate.getDate() + direction);
+    setSelectedDate(newDate);
   };
 
   const swipeGesture = Gesture.Pan().onEnd((e) => {
-    if (e.velocityX > 0) {
-      // Swiped right (previous day)
-      setSelectedDate((prevDate) => {
-        const newDate = new Date(prevDate);
-        newDate.setDate(newDate.getDate() - 1);
-        return newDate;
-      });
-    } else if (e.velocityX < 0) {
-      // Swiped left (next day)
-      setSelectedDate((prevDate) => {
-        const newDate = new Date(prevDate);
-        newDate.setDate(newDate.getDate() + 1);
-        return newDate;
-      });
+    "worklet";
+    const swipeThreshold = 35;
+
+    try {
+      if (e.velocityX > 0 && e.translationX > swipeThreshold) {
+        // Swiped right (previous day)
+        runOnJS(updateDate)(-1);
+      } else if (e.velocityX < 0 && e.translationX < -swipeThreshold) {
+        // Swiped left (next day)
+        runOnJS(updateDate)(1);
+      }
+    } catch (error) {
+      console.error("Error in gesture handler:", error);
     }
   });
 
@@ -177,15 +160,11 @@ const Feed = () => {
           weekDates={weekDates}
         />
       </Animated.View>
-      {/* <GestureDetector gesture={swipeGesture}> */}
-      {/* <View className="pb-[40rem]"> */}
-      <FeedCollection id={feedData.id} posts={feedData.posts} />
-      {/* <View>
-          <Text>Posts for {selectedDateStr}</Text>
-          <Text>{feedData.posts.length} posts</Text>
+      <GestureDetector gesture={swipeGesture}>
+        <View className="flex-1">
+          <FeedCollection id={feedData.id} posts={feedData.posts} />
         </View>
-      </View> */}
-      {/* </GestureDetector> */}
+      </GestureDetector>
       <BottomMenu />
     </SafeAreaView>
   );
