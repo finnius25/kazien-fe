@@ -5,9 +5,7 @@ import getWeekDates from "@/utils/date/getWeekDates";
 import isToday from "@/utils/date/isToday";
 import { days } from "@/utils/date/days";
 
-const TopCalView = ({ selectedDate, setSelectedDate }) => {
-  const weekDates = getWeekDates();
-
+const TopCalView = ({ selectedDate, setSelectedDate, weekDates = [] }) => {
   return (
     <View className="w-full px-4 pb-4 rounded-b-3xl">
       <View className="flex flex-row justify-around w-full items-center mt-6">
