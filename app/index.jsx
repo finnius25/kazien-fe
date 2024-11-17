@@ -7,7 +7,7 @@ import { Button } from "react-native";
 export default function Index() {
   useEffect(() => {
     const redirect = setTimeout(() => {
-      router.replace("/feed");
+      router.replace("/alt-feed");
     }, 0);
 
     return () => clearTimeout(redirect);

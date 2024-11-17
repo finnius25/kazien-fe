@@ -4,6 +4,9 @@ import formatMonth from "../../utils/date/formatMonth";
 import formatDay from "../../utils/date/formatDay";
 
 const Header = ({ selectedDate }) => {
+  if (!selectedDate) {
+    selectedDate = new Date();
+  }
   return (
     <View className="pt-8 px-4">
       <View className="w-full flex flex-row justify-between">
